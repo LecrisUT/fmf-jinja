@@ -1,0 +1,60 @@
+[build-system]
+requires = ['hatchling', 'hatch-vcs']
+build-backend = 'hatchling.build'
+
+[project]
+name = 'fmf_jinja'
+authors = [
+    { name = 'Cristian Le', email = 'git@lecris.dev' },
+]
+maintainers = [
+    { name = 'Cristian Le', email = 'git@lecris.dev' },
+]
+description = 'Jinja-style templater using fmf metadata'
+readme = 'README.md'
+license = 'GPL-3.0-or-later'
+license-files = { paths = ['LICENSE.md'] }
+requires-python = '>=3.9'
+classifiers = [
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Utilities',
+]
+keywords = [
+    'metadata',
+    'template',
+]
+dependencies = [
+    'fmf',
+    'Jinja2'
+]
+dynamic = ['version']
+
+[project.urls]
+Homepage = 'https://github.com/psss/fmf'
+
+[project.optional-dependencies]
+test = [
+    'pytest',
+]
+dev = [
+    'fmf_jinja[test]',
+    'pre-commit',
+]
+docs = [
+    'sphinx',
+    'furo',
+]
+
+[tool.hatch]
+version.source = 'vcs'
+version.raw-options.version_scheme = 'post-release'
+build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
+
+[tool.pytest.ini_options]
+testpaths = [
+    'test',
+]

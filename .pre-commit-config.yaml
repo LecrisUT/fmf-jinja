@@ -1,0 +1,44 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        exclude: LICENSE.md
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.3.0
+    hooks:
+      - id: mypy
+        files: ^(src|test)
+
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.16
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-tables
+        exclude: ^(docs\/.*|LICENSE.md)
+  - repo: https://github.com/executablebooks/mdformat
+    # https://github.com/executablebooks/mdformat/issues/234
+    # TODO: Disabled due to lack of colon-fence support
+    rev: 0.7.16
+    hooks:
+      - id: mdformat
+        stages: [ manual ]
+        additional_dependencies:
+          - mdformat-myst
+        files: docs\/.*\.md$
