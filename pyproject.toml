@@ -65,5 +65,5 @@ testpaths = [
 
 [tool.mypy]
 strict = true
-files = ["src"]
+files = ["src", "test"]
 python_version = "3.9"

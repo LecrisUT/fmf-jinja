@@ -22,7 +22,7 @@ repos:
     rev: v1.4.1
     hooks:
       - id: mypy
-        files: ^(src)
+        files: ^(src|test)
         additional_dependencies:
           - click
 
