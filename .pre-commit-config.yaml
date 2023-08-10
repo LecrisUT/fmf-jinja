@@ -23,6 +23,8 @@ repos:
     hooks:
       - id: mypy
         files: ^(src)
+        additional_dependencies:
+          - click
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16

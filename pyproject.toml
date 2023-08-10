@@ -29,7 +29,8 @@ keywords = [
 ]
 dependencies = [
     'fmf',
-    'Jinja2'
+    'Jinja2',
+    'click',
 ]
 dynamic = ['version']
 
@@ -48,6 +49,9 @@ docs = [
     'sphinx',
     'furo',
 ]
+
+[project.scripts]
+fmf-jinja = 'fmf_jinja.cli:main'
 
 [tool.hatch]
 version.source = 'vcs'
