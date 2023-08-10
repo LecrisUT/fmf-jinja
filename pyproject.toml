@@ -41,6 +41,10 @@ Homepage = 'https://github.com/psss/fmf'
 test = [
     'pytest',
 ]
+test-cov = [
+    'fmf_jinja[test]',
+    'pytest-cov',
+]
 dev = [
     'fmf_jinja[test]',
     'pre-commit',
