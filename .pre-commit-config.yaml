@@ -19,10 +19,10 @@ repos:
       - id: black
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.3.0
+    rev: v1.4.1
     hooks:
       - id: mypy
-        files: ^(src|test)
+        files: ^(src)
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16

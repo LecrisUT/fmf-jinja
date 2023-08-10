@@ -58,3 +58,8 @@ build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
 testpaths = [
     'test',
 ]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+python_version = "3.9"
