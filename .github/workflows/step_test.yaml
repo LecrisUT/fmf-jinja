@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: false
+        description: Codecov token
 
 permissions:
   contents: read

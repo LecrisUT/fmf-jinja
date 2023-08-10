@@ -22,6 +22,8 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/step_test.yaml
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   build-wheel:
     uses: ./.github/workflows/step_build-wheel.yaml
