@@ -1,0 +1,10 @@
+template: /template
+
+/childA:
+  links:
+    link_a: file.yaml
+  vars:
+    my_var: ValueA
+/childB:
+  vars:
+    my_var: ValueB
