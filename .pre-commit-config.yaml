@@ -24,7 +24,9 @@ repos:
       - id: mypy
         files: ^(src|test)
         additional_dependencies:
-          - click
+          - Click
+          - fmf
+          - jinja2
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16
