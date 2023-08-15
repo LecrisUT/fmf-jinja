@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 from fmf import Tree
 
 
-def _generate(tree: Tree, output: Path) -> None:
+def _generate(tree: Tree, output: Path, output_root: Path) -> None:
     # Get the template files/folders
     templates: Union[str, list[str]] = tree["templates"]  # type: ignore
     if not isinstance(templates, list):
@@ -53,10 +53,13 @@ def _generate(tree: Tree, output: Path) -> None:
                         output_file = output_path / fil
                         if input_file.is_symlink():
                             # If it's a symlink copy as is
-                            if output_file.exists():
+                            if output_file.is_symlink():
                                 # Remove existing symlink if it points to somewhere else
                                 if output_file.readlink() == input_file.readlink():
                                     continue
+                                output_file.unlink()
+                            elif output_file.exists():
+                                # If it's a file always remove it
                                 output_file.unlink()
                             output_file.symlink_to(input_file.readlink())
                         else:
@@ -86,14 +89,17 @@ def _generate(tree: Tree, output: Path) -> None:
         assert type(link_name) == str
         assert type(link_path_str) == str
         link_path = Path(link_path_str)
-        # If the link path is absolute treat it as relative to tree.root
+        # If the link path is absolute treat it as relative to the output root
         if link_path.is_absolute():
-            link_path = tree.root / Path(*link_path.parts[1:])
+            link_path = output_root / Path(*link_path.parts[1:])
         output_link = output / link_name
-        # Remove existing symlink if it points to somewhere else
-        if output_link.exists():
+        if output_link.is_symlink():
+            # Remove existing symlink if it points to somewhere else
             if output_link.readlink() == link_path:
                 continue
+            output_link.unlink()
+        elif output_link.exists():
+            # If it's a file always remove it
             output_link.unlink()
         output_link.symlink_to(link_path)
 
@@ -110,4 +116,6 @@ def generate(tree: Tree, output: Path) -> None:
     for curr_tree, branches, leaves in tree.walk():
         for leaf_tree in [curr_tree[f"/{leaf}"] for leaf in leaves]:
             assert isinstance(leaf_tree, Tree)
-            _generate(leaf_tree, output / leaf_tree.name.removeprefix("/"))
+            _generate(
+                leaf_tree, output / leaf_tree.name.removeprefix("/"), output.absolute()
+            )
