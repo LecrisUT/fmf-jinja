@@ -52,6 +52,7 @@ dev = [
 docs = [
     'sphinx',
     'furo',
+    'myst_parser',
 ]
 
 [project.scripts]
