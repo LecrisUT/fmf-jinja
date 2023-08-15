@@ -2,7 +2,7 @@ templates: /template
 
 /childA:
   links:
-    link_a: file.yaml
+    link_tpl.yaml: file.yaml
   vars:
     my_var: ValueA
 /childB:

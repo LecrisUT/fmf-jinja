@@ -19,15 +19,18 @@ def _generate(tree: Tree, output: Path) -> None:
     # Get the vars used in the template
     vars = tree.get("vars", {})
     assert isinstance(vars, dict)
+    # Get the symlinks to generate
+    links = tree.get("links", {})
+    assert isinstance(links, dict)
     # Make the root output path if it doesn't exist
     output.mkdir(parents=True, exist_ok=True)
+    assert tree.root is not None
     # Loop over all templates files/folders
     for tpl_str in templates:
         tpl_path = Path(tpl_str)
         # Drop root ('/') to make it relative to tree.root
         if tpl_path.is_absolute():
             tpl_path = Path(*tpl_path.parts[1:])
-        assert tree.root is not None
         # Create the absolute path including the tree.root
         tpl_path = tree.root / tpl_path
         if not tpl_path.exists():
@@ -46,7 +49,19 @@ def _generate(tree: Tree, output: Path) -> None:
                 for fil in [Path(f) for f in files_str]:
                     if ".j2" not in fil.suffixes:
                         # If it's not a template simply copy the file
-                        shutil.copy(tpl_path / rel_path / fil, output_path / fil)
+                        input_file = tpl_path / rel_path / fil
+                        output_file = output_path / fil
+                        if input_file.is_symlink():
+                            # If it's a symlink copy as is
+                            if output_file.exists():
+                                # Remove existing symlink if it points to somewhere else
+                                if output_file.readlink() == input_file.readlink():
+                                    continue
+                                output_file.unlink()
+                            output_file.symlink_to(input_file.readlink())
+                        else:
+                            # Otherwise copy the contents of the file
+                            shutil.copy(input_file, output_file)
                     else:
                         # Otherwise render the file
                         # TODO: Ignore if it's a template input
@@ -66,6 +81,21 @@ def _generate(tree: Tree, output: Path) -> None:
             output_file = output / fil_name
             with output_file.open("w") as f:
                 f.write(tpl.render(**vars))
+    # Create the symlinks
+    for link_name, link_path_str in links.items():
+        assert type(link_name) == str
+        assert type(link_path_str) == str
+        link_path = Path(link_path_str)
+        # If the link path is absolute treat it as relative to tree.root
+        if link_path.is_absolute():
+            link_path = tree.root / Path(*link_path.parts[1:])
+        output_link = output / link_name
+        # Remove existing symlink if it points to somewhere else
+        if output_link.exists():
+            if output_link.readlink() == link_path:
+                continue
+            output_link.unlink()
+        output_link.symlink_to(link_path)
 
 
 def generate(tree: Tree, output: Path) -> None:
