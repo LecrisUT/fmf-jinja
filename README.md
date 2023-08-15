@@ -1,5 +1,9 @@
 # FMF-Jinja
 
+[![Documentation Status](https://readthedocs.org/projects/fmf-jinja/badge/?version=latest)](https://fmf-jinja.readthedocs.io/en/latest/?badge=latest)
+[![CI](https://github.com/LecrisUT/fmf-jinja/actions/workflows/ci.yaml/badge.svg)](https://github.com/LecrisUT/fmf-jinja/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/github/LecrisUT/fmf-jinja/graph/badge.svg?token=WCTLWU6M2O)](https://codecov.io/github/LecrisUT/fmf-jinja)
+
 <!-- SPHINX-START -->
 
 Templating engine using [jinja files](https://jinja.palletsprojects.com) and
