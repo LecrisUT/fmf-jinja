@@ -37,7 +37,7 @@ def _generate(tree: Tree, output: Path, output_root: Path) -> None:
             raise FileNotFoundError(f"Template path not found: {tpl_str} ({tpl_path})")
         # Create the jinja environment that will load the
         loader = FileSystemLoader(tpl_path if tpl_path.is_dir() else tpl_path.parent)
-        env = Environment(loader=loader)
+        env = Environment(loader=loader, keep_trailing_newline=True)
         if tpl_path.is_dir():
             # If it's a directory, loop over the file structure
             for path_str, _, files_str in os.walk(tpl_path):
