@@ -4,6 +4,11 @@ on:
       CODECOV_TOKEN:
         required: false
         description: Codecov token
+    inputs:
+      pytest-flags:
+        type: string
+        required: false
+        description: Additional flags to add to pytest
 
 permissions:
   contents: read
@@ -35,7 +40,7 @@ jobs:
       - name: Install package
         run: pip install -e.[test-cov]
       - name: Test package
-        run: pytest --cov --cov-report=xml
+        run: pytest --cov --cov-report=xml ${{ inputs.pytest-flags }}
       - name: Upload coverage report
         uses: codecov/codecov-action@v3
         with:

@@ -8,6 +8,10 @@ on:
         required: false
         default: false
         description: Upload wheel as an artifact
+      pytest-flags:
+        type: string
+        required: false
+        description: Additional flags to add to pytest
   pull_request:
   push:
     branches: [ main ]
@@ -22,6 +26,8 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/step_test.yaml
+    with:
+      pytest-flags: ${{ inputs.pytest-flags }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
