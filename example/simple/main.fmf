@@ -1,4 +1,4 @@
-template: /template
+templates: /template
 
 /childA:
   links:
@@ -8,3 +8,5 @@ template: /template
 /childB:
   vars:
     my_var: ValueB
+/childB/grandChildBA:
+/childB/grandChildBB:
