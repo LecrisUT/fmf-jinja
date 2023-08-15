@@ -13,6 +13,7 @@ DIR = Path(__file__).parent.resolve()
 BASE = DIR.parent
 
 
+# noinspection PyPep8Naming
 class dircmp(filecmp.dircmp[str]):
     """
     Compare the content of dir1 and dir2. In contrast with filecmp.dircmp, this

@@ -17,8 +17,8 @@ def _generate(tree: Tree, output: Path, output_root: Path) -> None:
     if not isinstance(templates, list):
         templates = [templates]
     # Get the vars used in the template
-    vars = tree.get("vars", {})
-    assert isinstance(vars, dict)
+    tree_vars = tree.get("vars", {})
+    assert isinstance(tree_vars, dict)
     # Get the symlinks to generate
     links = tree.get("links", {})
     assert isinstance(links, dict)
@@ -73,7 +73,7 @@ def _generate(tree: Tree, output: Path, output_root: Path) -> None:
                             [part for part in fil.name.split(".") if part != "j2"]
                         )
                         with output_file.open("w") as f:
-                            f.write(tpl.render(**vars))
+                            f.write(tpl.render(**tree_vars))
         else:
             # If it's a file treat it as a template and output it to the output root
             tpl = env.get_template(tpl_path.name)
@@ -83,7 +83,7 @@ def _generate(tree: Tree, output: Path, output_root: Path) -> None:
             )
             output_file = output / fil_name
             with output_file.open("w") as f:
-                f.write(tpl.render(**vars))
+                f.write(tpl.render(**tree_vars))
     # Create the symlinks
     for link_name, link_path_str in links.items():
         assert type(link_name) == str

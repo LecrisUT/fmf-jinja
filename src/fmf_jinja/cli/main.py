@@ -43,7 +43,8 @@ def generate(ctx: Context, output: Path) -> None:
     Generate template output
     \f
 
-    :param ctx:
+    :param ctx: Click context
+    :param output: Output path
     :return:
     """
     _generate(ctx.obj["tree"], output)
