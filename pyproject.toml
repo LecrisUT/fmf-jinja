@@ -28,7 +28,7 @@ keywords = [
     'template',
 ]
 dependencies = [
-    'fmf',
+    'fmf @ git+https://github.com/LecrisUT/fmf@fmf-jinja',
     'Jinja2',
     'click',
 ]
@@ -61,6 +61,7 @@ fmf-jinja = 'fmf_jinja.cli:main'
 version.source = 'vcs'
 version.raw-options.version_scheme = 'post-release'
 build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
+metadata.allow-direct-references = true
 
 [tool.pytest.ini_options]
 testpaths = [
