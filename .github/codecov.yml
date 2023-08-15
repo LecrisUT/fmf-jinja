@@ -1,3 +1,8 @@
 codecov:
   notify:
     after_n_builds: 4
+ignore:
+  - "example"
+  - "test"
+fixes:
+  - "src/::"
