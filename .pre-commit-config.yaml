@@ -28,6 +28,7 @@ repos:
           - Click
           - fmf @ git+https://github.com/LecrisUT/fmf@fmf-jinja
           - jinja2
+          - pytest
 
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16

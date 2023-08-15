@@ -13,7 +13,7 @@ from fmf import Tree
 
 def _generate(tree: Tree, output: Path, output_root: Path) -> None:
     # Get the template files/folders
-    templates: Union[str, list[str]] = tree["templates"]  # type: ignore
+    templates: Union[str, list[str]] = tree["templates"]  # type: ignore[assignment]
     if not isinstance(templates, list):
         templates = [templates]
     # Get the vars used in the template
