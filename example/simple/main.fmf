@@ -1,12 +1,8 @@
 templates: /template
 
-/childA:
-  links:
-    link_tpl.yaml: file.yaml
+/rootA:
   vars:
-    my_var: ValueA
-/childB:
+    my_var: A
+/rootB:
   vars:
-    my_var: ValueB
-/childB/grandChildBA:
-/childB/grandChildBB:
+    my_var: B

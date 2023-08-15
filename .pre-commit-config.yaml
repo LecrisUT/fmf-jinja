@@ -6,6 +6,7 @@ repos:
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: check-symlinks
+        exclude: ^example/symlink/template/link_orig.yaml
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
