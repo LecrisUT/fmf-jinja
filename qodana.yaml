@@ -9,8 +9,18 @@ profile:
   name: qodana.starter
 
 #Enable inspections
-#include:
-#  - name: <SomeEnabledInspectionId>
+include:
+  - name: PyInterpreterInspection
+  - name: PyAugmentAssignmentInspection
+  - name: PyCompatibilityInspection
+    ourVersions: [ '3.9','3.10','3.11','3.12' ]
+  - name: PyMissingOrEmptyDocstringInspection
+    paths:
+      - src
+  - name: PyMissingTypeHintsInspection
+  - name: PyUnresolvedReferencesInspection
+  - name: VulnerableLibrariesGlobal
+  - name: QodanaSanity
 
 #Disable inspections
 #exclude:
@@ -20,6 +30,7 @@ profile:
 
 #Execute shell command before Qodana execution (Applied in CI/CD pipeline)
 bootstrap: |
+  # https://youtrack.jetbrains.com/issue/QD-2706
   rm -rf .idea
   pip install -e .[test]
 
