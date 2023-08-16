@@ -26,7 +26,8 @@ include:
 #      - <path/where/not/run/inspection>
 
 #Execute shell command before Qodana execution (Applied in CI/CD pipeline)
-bootstrap: |
+bootstrap:  |
+  # https://youtrack.jetbrains.com/issue/QD-2706
   rm -rf .idea
   pip install -e .[test]
 
