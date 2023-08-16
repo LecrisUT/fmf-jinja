@@ -9,8 +9,15 @@ profile:
   name: qodana.starter
 
 #Enable inspections
-#include:
-#  - name: <SomeEnabledInspectionId>
+include:
+  - name: PyInterpreterInspection
+  - name: PyAugmentAssignmentInspection
+  - name: PyCompatibilityInspection
+  - name: PyMissingOrEmptyDocstringInspection
+  - name: PyMissingTypeHintsInspection
+  - name: PyUnresolvedReferencesInspection
+  - name: VulnerableLibrariesGlobal
+  - name: QodanaSanity
 
 #Disable inspections
 #exclude:
