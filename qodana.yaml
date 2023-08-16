@@ -14,6 +14,8 @@ include:
   - name: PyAugmentAssignmentInspection
   - name: PyCompatibilityInspection
   - name: PyMissingOrEmptyDocstringInspection
+    paths:
+      - src
   - name: PyMissingTypeHintsInspection
   - name: PyUnresolvedReferencesInspection
   - name: VulnerableLibrariesGlobal
