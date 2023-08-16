@@ -17,7 +17,10 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  security-events: write
+  contents: write
+  checks: write
+  pull-requests: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -30,9 +33,24 @@ jobs:
       pytest-flags: ${{ inputs.pytest-flags }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    permissions:
+      contents: read
+
+  code-analysis:
+    uses: ./.github/workflows/step_code-analysis.yml
+    needs: [ tests ]
+    secrets:
+      QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+    permissions:
+      security-events: write
+      contents: write
+      checks: write
+      pull-requests: write
 
   build-wheel:
     uses: ./.github/workflows/step_build-wheel.yaml
     needs: [ tests ]
     with:
       upload: ${{ inputs.upload-wheel || false }}
+    permissions:
+      contents: read
