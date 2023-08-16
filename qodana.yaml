@@ -13,6 +13,7 @@ include:
   - name: PyInterpreterInspection
   - name: PyAugmentAssignmentInspection
   - name: PyCompatibilityInspection
+    ourVersions: [ '3.9','3.10','3.11','3.12' ]
   - name: PyMissingOrEmptyDocstringInspection
     paths:
       - src
@@ -28,7 +29,7 @@ include:
 #      - <path/where/not/run/inspection>
 
 #Execute shell command before Qodana execution (Applied in CI/CD pipeline)
-bootstrap:  |
+bootstrap: |
   # https://youtrack.jetbrains.com/issue/QD-2706
   rm -rf .idea
   pip install -e .[test]
