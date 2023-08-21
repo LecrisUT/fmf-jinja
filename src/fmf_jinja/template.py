@@ -68,7 +68,7 @@ def _generate(tree: Tree, output: Path, output_root: Path) -> None:
         loader = FileSystemLoader(
             template.path if template.path.is_dir() else template.path.parent
         )
-        env = Environment(loader=loader, keep_trailing_newline=True)
+        env = Environment(loader=loader, keep_trailing_newline=True, trim_blocks=True)
         if template.path.is_dir():
             # If it's a directory, loop over the file structure
             for path_str, dirs_str, files_str in os.walk(template.path):
