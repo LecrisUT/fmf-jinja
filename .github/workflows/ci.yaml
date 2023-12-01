@@ -17,10 +17,7 @@ on:
     branches: [ main ]
 
 permissions:
-  security-events: write
-  contents: write
-  checks: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,10 +32,6 @@ jobs:
     uses: ./.github/workflows/step_test.yaml
     with:
       pytest-flags: ${{ inputs.pytest-flags }}
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    permissions:
-      contents: read
 
   code-analysis:
     uses: ./.github/workflows/step_code-analysis.yml
@@ -56,5 +49,3 @@ jobs:
     needs: [ tests ]
     with:
       upload: ${{ inputs.upload-wheel || false }}
-    permissions:
-      contents: read
