@@ -1,32 +1,39 @@
-import pytest
-import filecmp
-from difflib import unified_diff
-from pathlib import Path
-from dataclasses import dataclass
+from __future__ import annotations
 
-from _pytest.fixtures import SubRequest
-from typing import Optional
+import difflib
+import filecmp
+from dataclasses import dataclass
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+import pytest
 
 from fmf_jinja.fmf import Tree
+
+if TYPE_CHECKING:
+    from _pytest.fixtures import SubRequest
 
 DIR = Path(__file__).parent.resolve()
 BASE = DIR.parent
 
 
-# noinspection PyPep8Naming
-class dircmp(filecmp.dircmp[str]):
+class dircmp(filecmp.dircmp[str]):  # noqa: N801
     """
-    Compare the content of dir1 and dir2. In contrast with filecmp.dircmp, this
+    Compare the content of dir1 and dir2.
+
+    In contrast with filecmp.dircmp, this
     subclass compares the content of files with the same path.
     """
 
     def phase3(self):
-        """
-        Find out differences between common files.
+        """Find out differences between common files.
         Ensure we are using content comparison with shallow=False.
         """
         fcomp = filecmp.cmpfiles(
-            self.left, self.right, self.common_files, shallow=False
+            self.left,
+            self.right,
+            self.common_files,
+            shallow=False,
         )
         self.same_files, self.diff_files, self.funny_files = fcomp
 
@@ -34,8 +41,8 @@ class dircmp(filecmp.dircmp[str]):
 def get_diff(
     left: Path,
     right: Path,
-    root_left: Optional[Path] = None,
-    root_right: Optional[Path] = None,
+    root_left: Path | None = None,
+    root_right: Path | None = None,
 ) -> tuple[list[Path], list[Path], list[Path], list[Path]]:
     root_left = root_left or left
     root_right = root_right or right
@@ -57,6 +64,7 @@ def get_diff(
 def is_same(dir1: Path, dir2: Path) -> bool:
     """
     Compare two directory trees content.
+
     Return False if they differ, True is they are the same.
     """
     compared = dircmp(dir1, dir2)
@@ -67,10 +75,7 @@ def is_same(dir1: Path, dir2: Path) -> bool:
         or compared.funny_files
     ):
         return False
-    for subdir in compared.common_dirs:
-        if not is_same(dir1 / subdir, dir2 / subdir):
-            return False
-    return True
+    return all(is_same(dir1 / subdir, dir2 / subdir) for subdir in compared.common_dirs)
 
 
 @dataclass
@@ -86,45 +91,45 @@ class PathComp:
 
 
 def pytest_assertrepr_compare(config, op, left, right):
-    if isinstance(left, PathComp) and isinstance(right, PathComp) and op == "==":
-        output = [
-            f"Compared path contents:",
-            f"'{left.path}' != '{right.path}'",
-        ]
-        if config.getoption("verbose") < 1:
-            return output
-        left_only, right_only, diff_files, funny_files = get_diff(left.path, right.path)
-        if left_only:
-            output.append("Left only:")
-            for f in left_only:
-                output.append(f"<  {f}")
-        if right_only:
-            output.append("Right only:")
-            for f in right_only:
-                output.append(f">  {f}")
-        if diff_files:
-            output.append("Diff files:")
-            for f in diff_files:
-                output.append(f"!  {f}")
-                if config.getoption("verbose") > 1:
-                    left_f = left.path / f
-                    right_f = right.path / f
-                    with left_f.open("r") as fil:
-                        left_lines = fil.readlines()
-                    with right_f.open("r") as fil:
-                        right_lines = fil.readlines()
-                    comp_file = unified_diff(
-                        left_lines,
-                        right_lines,
-                        fromfile=str(left_f),
-                        tofile=str(right_f),
-                    )
-                    output += comp_file
-        if funny_files:
-            output.append("Funny files (couldn't compare):")
-            for f in funny_files:
-                output.append(f"?  {f}")
+    if not isinstance(left, PathComp) or not isinstance(right, PathComp):
+        return None
+    if op != "==":
+        return None
+    output = [
+        "Compared path contents:",
+        f"'{left.path}' != '{right.path}'",
+    ]
+    if config.getoption("verbose") < 1:
         return output
+    left_only, right_only, diff_files, funny_files = get_diff(left.path, right.path)
+    if left_only:
+        output += ["Left only:"]
+        output += [f"< {fil}" for fil in left_only]
+    if right_only:
+        output += ["Right only:"]
+        output += [f"> {fil}" for fil in right_only]
+    if diff_files:
+        output += ["Diff files:"]
+        for fil in diff_files:
+            output += [f"!  {fil}"]
+            if config.getoption("verbose") > 1:
+                left_f = left.path / fil
+                right_f = right.path / fil
+                with left_f.open("r") as f:
+                    left_lines = f.readlines()
+                with right_f.open("r") as f:
+                    right_lines = f.readlines()
+                comp_file = difflib.unified_diff(
+                    left_lines,
+                    right_lines,
+                    fromfile=str(left_f),
+                    tofile=str(right_f),
+                )
+                output += comp_file
+    if funny_files:
+        output += ["Funny files (couldn't compare):"]
+        output += [f"? {fil}" for fil in funny_files]
+    return output
 
 
 @dataclass
@@ -134,13 +139,15 @@ class TreeFixture:
     expected_path: PathComp
 
 
-@pytest.fixture
+@pytest.fixture()
 def fmf_tree(tmp_path: Path, request: SubRequest) -> TreeFixture:
     path = Path(request.param)
     tree_path = DIR / "data" / "input" / "trees" / path
     expected_path = DIR / "data" / "output" / "trees" / path
-    assert tree_path.exists() and tree_path.is_dir()
+    assert tree_path.exists()
+    assert tree_path.is_dir()
     assert tree_path.joinpath(".fmf", "version").exists()
-    assert expected_path.exists() and expected_path.is_dir()
+    assert expected_path.exists()
+    assert expected_path.is_dir()
     tree = Tree(tree_path)
     return TreeFixture(tree, PathComp(tmp_path), PathComp(expected_path))

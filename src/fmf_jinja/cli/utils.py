@@ -1,12 +1,18 @@
+"""Various helper constructs."""
+
+from __future__ import annotations
+
+import os
 from contextlib import contextmanager
 from pathlib import Path
-from os import getcwd, chdir
+from typing import TYPE_CHECKING
 
-from typing import Union, Iterator
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 
 @contextmanager
-def cd(target: Union[str, Path]) -> Iterator[None]:
+def cd(target: str | Path) -> Iterator[None]:
     """
     Manage cd in a pushd/popd fashion.
 
@@ -15,9 +21,9 @@ def cd(target: Union[str, Path]) -> Iterator[None]:
         with cd(tmpdir):
           do something in tmpdir
     """
-    curdir = getcwd()
-    chdir(target)
+    curdir = Path.cwd()
+    os.chdir(target)
     try:
         yield
     finally:
-        chdir(curdir)
+        os.chdir(curdir)

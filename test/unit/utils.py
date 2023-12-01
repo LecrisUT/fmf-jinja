@@ -1,18 +1,23 @@
-from click.testing import CliRunner, Result
+from __future__ import annotations
 
-from click.core import BaseCommand
-from pathlib import Path
-from typing import Union, Optional
+from typing import TYPE_CHECKING
+
+from click.testing import CliRunner, Result
 
 from fmf_jinja.cli.main import main
 from fmf_jinja.cli.utils import cd
 
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from click.core import BaseCommand
+
 
 def call_cli(
     fnc: BaseCommand = main,
-    parameters: Optional[list[str]] = None,
-    envs: Optional[dict[str, Optional[str]]] = None,
-    working_dir: Union[str, Path] = ".",
+    parameters: list[str] | None = None,
+    envs: dict[str, str | None] | None = None,
+    working_dir: str | Path = ".",
 ) -> Result:
     runner = CliRunner()
     envs = envs or {}
