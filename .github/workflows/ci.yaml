@@ -17,27 +17,24 @@ on:
     branches: [ main ]
 
 permissions:
-  security-events: write
-  contents: write
-  checks: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  pre-commit:
+    uses: ./.github/workflows/step_pre-commit.yaml
+
   tests:
+    needs: [ pre-commit ]
     uses: ./.github/workflows/step_test.yaml
     with:
       pytest-flags: ${{ inputs.pytest-flags }}
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    permissions:
-      contents: read
 
   code-analysis:
-    uses: ./.github/workflows/step_code-analysis.yml
+    uses: ./.github/workflows/step_code-analysis.yaml
     needs: [ tests ]
     secrets:
       QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
@@ -52,5 +49,14 @@ jobs:
     needs: [ tests ]
     with:
       upload: ${{ inputs.upload-wheel || false }}
-    permissions:
-      contents: read
+
+  pass:
+    name: Pass
+    needs: [ pre-commit, tests, build-wheel, code-analysis ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: re-actors/alls-green@release/v1
+        with:
+          allowed-skips: code-analysis
+          jobs: ${{ toJSON(needs) }}
+    if: always()

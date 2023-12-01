@@ -1,9 +1,5 @@
 on:
   workflow_call:
-    secrets:
-      CODECOV_TOKEN:
-        required: false
-        description: Codecov token
     inputs:
       pytest-flags:
         type: string
@@ -14,14 +10,6 @@ permissions:
   contents: read
 
 jobs:
-  pre-commit:
-    name: Run pre-commit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - uses: pre-commit/action@v3.0.0
-
   checks:
     name:
       Check 🐍 ${{ matrix.python-version }}
@@ -31,12 +19,10 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
-
       - name: Install package
         run: pip install -e .[test-cov]
       - name: Test package
