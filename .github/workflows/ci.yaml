@@ -34,7 +34,7 @@ jobs:
       pytest-flags: ${{ inputs.pytest-flags }}
 
   code-analysis:
-    uses: ./.github/workflows/step_code-analysis.yml
+    uses: ./.github/workflows/step_code-analysis.yaml
     needs: [ tests ]
     secrets:
       QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
@@ -49,3 +49,13 @@ jobs:
     needs: [ tests ]
     with:
       upload: ${{ inputs.upload-wheel || false }}
+
+  pass:
+    name: Pass
+    needs: [ pre-commit, tests, build-wheel, code-analysis ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
+    if: always()
