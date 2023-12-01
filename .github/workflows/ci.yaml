@@ -27,7 +27,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  pre-commit:
+    uses: ./.github/workflows/step_pre-commit.yaml
+
   tests:
+    needs: [ pre-commit ]
     uses: ./.github/workflows/step_test.yaml
     with:
       pytest-flags: ${{ inputs.pytest-flags }}
