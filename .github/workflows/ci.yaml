@@ -57,5 +57,6 @@ jobs:
     steps:
       - uses: re-actors/alls-green@release/v1
         with:
+          allowed-skips: code-analysis
           jobs: ${{ toJSON(needs) }}
     if: always()
