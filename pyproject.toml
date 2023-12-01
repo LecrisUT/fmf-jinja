@@ -69,10 +69,71 @@ testpaths = [
     'test',
 ]
 
+[tool.ruff]
+src = ["src"]
+
+[tool.ruff.lint]
+extend-select = [
+    "F",           # pyflakes
+    "W",           # pycodestyle-warnings
+    "E",           # pycodestyle-errors
+    "I",           # isort
+    "N",           # pep8-naming
+    "D",           # pydocstyle
+    "UP",          # pyupgrade
+    "YTT",         # flake8-2020
+    "ANN",         # flake8-annotations
+    "S",           # flake8-banditF
+    "FBT",         # flake8-boolean-trap
+    "B",           # flake8-bugbear
+    "A",           # flake8-builtins
+    "COM",         # flake8-comma
+    "C4",          # flake8-comprehensions
+    "EM",          # flake8-errmsg
+    "FA",          # flake8-future-annotations
+    "ISC",         # flake8-implicit-str-concat
+    "ICN",         # flake8-import-conventions
+    "G",           # flake8-logging-format
+    "PIE",         # flake8-pie
+    "T20",         # flake8-print
+    "PYI",         # flake8-pyi
+    "PT",          # flake8-pytest-style
+    "Q",           # flake8-quotes
+    "RSE",         # flake8-raise
+    "RET",         # flake8-return
+    "SLF",         # flake8-self
+    "SIM",         # flake8-simplify
+    "TID",         # flake8-tidy-imports
+    "TCH",         # flake8-type-checking
+    "ARG",         # flake8-unused-arguments
+    "PTH",         # flake8-use-pathlib
+    "TD",          # flake8-todos
+    "ERA",         # eradicate
+    "PGH",         # pygrep-hooks
+    "PL",          # pylint
+    "TRY",         # tryceratops
+    "FLY",         # flynt
+    "PERF",        # perflint
+    "FURB",        # refurb
+    "RUF",         # Ruff-specific
+]
+ignore = [
+    "ANN101",  # Missing type annotation for `self` in method
+    "ANN102",  # Missing type annotation for `cls` in classmethod
+    "D203",    # 1 blank line required before class docstring
+    "D212",    # Multi-line docstring summary should start at the first line
+    "S101",    # Use of assert detected
+    "TD002",   # Missing author in TODO
+    "TD003",   # Missing issue link on the line following this TODO
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test/**" = ["D", "ANN"]
+
 [tool.mypy]
 files = ["src", "test"]
 mypy_path = ["$MYPY_CONFIG_FILE_DIR/src"]
-python_version = "3.9"
+python_version = "3.12"
 warn_unused_configs = true
 show_error_codes = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]

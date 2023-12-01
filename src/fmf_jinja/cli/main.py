@@ -1,6 +1,9 @@
+"""Main CLI interface."""
+
+from pathlib import Path
+
 import click
 from click import Context
-from pathlib import Path
 
 from fmf_jinja import __version__
 from fmf_jinja.fmf import Tree
@@ -20,9 +23,7 @@ from fmf_jinja.template import generate as _generate
 )
 @click.pass_context
 def main(ctx: Context, root: Path) -> None:
-    """
-    FMF-Jinja template generator
-    """
+    """FMF-Jinja template generator."""
     ctx.ensure_object(dict)
     ctx.obj["tree"] = Tree(root)
 
@@ -39,8 +40,9 @@ def main(ctx: Context, root: Path) -> None:
 )
 @click.pass_context
 def generate(ctx: Context, output: Path) -> None:
-    """
-    Generate template output
+    r"""
+    Generate template output.
+
     \f
 
     :param ctx: Click context
