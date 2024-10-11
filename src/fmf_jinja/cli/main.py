@@ -1,13 +1,14 @@
 """Main CLI interface."""
 
+from __future__ import annotations
+
 from pathlib import Path
 
 import click
-from click import Context
+from fmf import Tree
 
-from fmf_jinja import __version__
-from fmf_jinja.fmf import Tree
-from fmf_jinja.template import generate as _generate
+from .. import __version__
+from ..template import TemplateContext
 
 
 @click.group("fmf-jinja")
@@ -22,7 +23,7 @@ from fmf_jinja.template import generate as _generate
     help="Path to the metadata tree root.",
 )
 @click.pass_context
-def main(ctx: Context, root: Path) -> None:
+def main(ctx: click.Context, root: Path) -> None:
     """FMF-Jinja template generator."""
     ctx.ensure_object(dict)
     ctx.obj["tree"] = Tree(root)
@@ -38,8 +39,13 @@ def main(ctx: Context, root: Path) -> None:
     show_default=True,
     help="Path to generated output directory",
 )
+@click.option(
+    "--recursive/--no-recursive",
+    default=True,
+    help="Re-run the generator if any fmf file is generated",
+)
 @click.pass_context
-def generate(ctx: Context, output: Path) -> None:
+def generate(ctx: click.Context, output: Path, recursive: bool) -> None:  # noqa: FBT001
     r"""
     Generate template output.
 
@@ -47,6 +53,11 @@ def generate(ctx: Context, output: Path) -> None:
 
     :param ctx: Click context
     :param output: Output path
+    :param recursive: Run recursively
     :return:
     """
-    _generate(ctx.obj["tree"], output)
+    template_ctx = TemplateContext(
+        tree_root=ctx.obj["tree"],
+        recursive=recursive,
+    )
+    template_ctx.generate(output)

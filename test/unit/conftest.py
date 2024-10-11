@@ -7,8 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
-
-from fmf_jinja.fmf import Tree
+from fmf import Tree
 
 if TYPE_CHECKING:
     from _pytest.fixtures import SubRequest
@@ -142,11 +141,11 @@ class TreeFixture:
 @pytest.fixture()
 def fmf_tree(tmp_path: Path, request: SubRequest) -> TreeFixture:
     path = Path(request.param)
-    tree_path = DIR / "data" / "input" / "trees" / path
-    expected_path = DIR / "data" / "output" / "trees" / path
+    tree_path = DIR / "data/input/trees" / path
+    expected_path = DIR / "data/output/trees" / path
     assert tree_path.exists()
     assert tree_path.is_dir()
-    assert tree_path.joinpath(".fmf", "version").exists()
+    assert (tree_path / ".fmf/version").exists()
     assert expected_path.exists()
     assert expected_path.is_dir()
     tree = Tree(tree_path)

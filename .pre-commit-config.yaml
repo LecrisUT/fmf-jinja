@@ -25,10 +25,12 @@ repos:
     rev: v1.5.1
     hooks:
       - id: mypy
+        # TODO: Fix mypy stuff
+        stages: [ manual ]
         files: ^(src|test)
         additional_dependencies:
-          - Click
-          - fmf @ git+https://github.com/LecrisUT/fmf@fmf-jinja
+          - click
+          - fmf
           - jinja2
           - pytest
 

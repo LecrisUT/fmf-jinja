@@ -1,0 +1,8 @@
+templates: /template
+
+/rootA:
+  vars:
+    my_var: A
+/rootB:
+  vars:
+    my_var: B

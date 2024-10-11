@@ -3,7 +3,7 @@ requires = ['hatchling', 'hatch-vcs']
 build-backend = 'hatchling.build'
 
 [project]
-name = 'fmf_jinja'
+name = 'fmf-jinja'
 authors = [
     { name = 'Cristian Le', email = 'git@lecris.dev' },
 ]
@@ -16,11 +16,12 @@ license = 'GPL-3.0-or-later'
 license-files = { paths = ['LICENSE.md'] }
 requires-python = '>=3.9'
 classifiers = [
-    'Natural Language :: English',
+    'Development Status :: 3 - Alpha',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Topic :: Utilities',
 ]
 keywords = [
@@ -28,14 +29,15 @@ keywords = [
     'template',
 ]
 dependencies = [
-    'fmf @ git+https://github.com/LecrisUT/fmf@fmf-jinja',
+    'fmf',
+    'attrs',
     'Jinja2',
     'click',
 ]
 dynamic = ['version']
 
 [project.urls]
-Homepage = 'https://github.com/psss/fmf'
+Homepage = 'https://github.com/LecrisUT/fmf-jinja'
 
 [project.optional-dependencies]
 test = [
@@ -44,10 +46,6 @@ test = [
 test-cov = [
     'fmf_jinja[test]',
     'pytest-cov',
-]
-dev = [
-    'fmf_jinja[test]',
-    'pre-commit',
 ]
 docs = [
     'sphinx',
@@ -125,6 +123,8 @@ ignore = [
     "S101",    # Use of assert detected
     "TD002",   # Missing author in TODO
     "TD003",   # Missing issue link on the line following this TODO
+    "D200",    # One-line docstring should fit on one line
+    "TID252",  # Prefer absolute imports over relative imports from parent modules
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -145,3 +145,7 @@ disallow_incomplete_defs = false
 module = ["fmf_jinja.*"]
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = ["fmf.*"]
+ignore_missing_imports = true
