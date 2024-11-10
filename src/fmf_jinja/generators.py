@@ -13,6 +13,8 @@ from typing import TYPE_CHECKING
 import attrs
 from jinja2 import Environment, FileSystemLoader
 
+from ._compat import relative_to, walk
+
 if TYPE_CHECKING:
     from typing import Self, TypeAlias
 
@@ -230,7 +232,7 @@ class TemplateGenerator(SubGenerator):
             self._render_or_copy(self.template_path, self.ctx.output_path, env=env)
         else:
             # Otherwise generate the whole directory rendering or copying the files
-            for curr_path, dirs_str, files_str in self.template_path.walk():
+            for curr_path, dirs_str, files_str in walk(self.template_path):
                 # Generate the output path and make sure it exists
                 rel_path = curr_path.relative_to(self.template_path)
                 output_path = self.ctx.output_path / rel_path
@@ -300,7 +302,8 @@ class SymlinkGenerator(SubGenerator):
                 # Otherwise it starts from the current output path
                 target_path = self.ctx.output_path / symlink_target
             # Make sure the symlink is created with relative path structure
-            relative_target_path = target_path.relative_to(
+            relative_target_path = relative_to(
+                target_path,
                 output_symlink,
                 walk_up=True,
             )

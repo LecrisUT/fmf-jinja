@@ -13,7 +13,6 @@ maintainers = [
 description = 'Jinja-style templater using fmf metadata'
 readme = 'README.md'
 license = 'GPL-3.0-or-later'
-license-files = { paths = ['LICENSE.md'] }
 requires-python = '>=3.9'
 classifiers = [
     'Development Status :: 3 - Alpha',
