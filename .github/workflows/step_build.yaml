@@ -5,12 +5,11 @@ permissions:
   contents: read
 
 jobs:
-  pre-commit:
-    name: pre-commit
+  build:
+    name: 🐍 sdist/wheel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
-      - uses: pre-commit/action@v3.0.1
+          fetch-depth: 0
+      - uses: hynek/build-and-inspect-python-package@v2

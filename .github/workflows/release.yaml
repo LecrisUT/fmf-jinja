@@ -1,4 +1,7 @@
-name: Prepare release
+name: 🚀 Release
+run-name: >
+  🚀 Release
+  ${{ github.ref_name }}
 
 on:
   push:
@@ -6,28 +9,24 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
       - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
 
-permissions:
-  contents: read
-
 jobs:
   tests:
     uses: ./.github/workflows/step_test.yaml
   build-wheel:
-    needs: [ tests ]
-    uses: ./.github/workflows/step_build-wheel.yaml
+    uses: ./.github/workflows/step_build.yaml
   upload_pypi:
     name: Upload to PyPI repository
     needs: [ tests, build-wheel ]
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/spglib/
+      url: https://pypi.org/project/fmf-jinja/
     permissions:
       id-token: write
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: artifact
+          name: Packages
           path: dist
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
@@ -37,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
           name: FMF-Jinja ${{ github.ref_name }}
           draft: true
