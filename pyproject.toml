@@ -29,7 +29,7 @@ keywords = [
 ]
 dependencies = [
     'fmf',
-    'attrs',
+    'attrs>=23.2.0',  # cached_property is broken otherwise
     'Jinja2',
     'click',
 ]
