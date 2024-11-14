@@ -1,0 +1,12 @@
+templates: /template
+vars: {}
+{% for A in var1 -%}
+/A_{{ A }}:
+  vars+:
+    varA: {{ A }}
+{% for B in var2 -%}
+/A_{{ A }}/B_{{ B }}:
+  vars+:
+    varB: {{ B }}
+{% endfor -%}
+{% endfor -%}

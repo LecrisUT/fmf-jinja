@@ -1,0 +1,9 @@
+# By default, all keys are treated as variables for jinja unless a `vars` variable is defined
+# or the key starts with a `/`.
+var1: 42
+var2: Default value
+
+# The path-like keys are the output (root) paths generated
+/rootA:
+/rootB:
+  var2: Overwritten

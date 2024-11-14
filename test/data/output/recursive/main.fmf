@@ -1,0 +1,20 @@
+templates: /template
+vars: {}
+/A_2:
+  vars+:
+    varA: 2
+/A_2/B_x:
+  vars+:
+    varB: x
+/A_2/B_y:
+  vars+:
+    varB: y
+/A_3:
+  vars+:
+    varA: 3
+/A_3/B_x:
+  vars+:
+    varB: x
+/A_3/B_y:
+  vars+:
+    varB: y

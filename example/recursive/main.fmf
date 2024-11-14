@@ -1,0 +1,9 @@
+vars:
+  var1: [2, 3]
+  var2:  [x, y]
+templates:
+  # Use the template folder for the fmf metadata
+  path: /template_fmf
+copy:
+  # Copy the template folder to be used in the final round
+  /template: /template
