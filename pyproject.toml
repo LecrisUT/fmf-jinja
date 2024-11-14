@@ -1,69 +1,69 @@
 [build-system]
-requires = ['hatchling', 'hatch-vcs']
-build-backend = 'hatchling.build'
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
-name = 'fmf-jinja'
+name = "fmf-jinja"
 authors = [
-    { name = 'Cristian Le', email = 'git@lecris.dev' },
+    { name = "Cristian Le", email = "git@lecris.dev" },
 ]
 maintainers = [
-    { name = 'Cristian Le', email = 'git@lecris.dev' },
+    { name = "Cristian Le", email = "git@lecris.dev" },
 ]
-description = 'Jinja-style templater using fmf metadata'
-readme = 'README.md'
-license = 'GPL-3.0-or-later'
-requires-python = '>=3.9'
+description = "Jinja-style templater using fmf metadata"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.9"
 classifiers = [
-    'Development Status :: 3 - Alpha',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
-    'Programming Language :: Python :: 3.13',
-    'Topic :: Utilities',
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Utilities",
 ]
 keywords = [
-    'metadata',
-    'template',
+    "metadata",
+    "template",
 ]
 dependencies = [
-    'fmf',
-    'attrs>=23.2.0',  # cached_property is broken otherwise
-    'Jinja2',
-    'click',
+    "fmf",
+    "attrs>=23.2.0",  # cached_property is broken otherwise
+    "Jinja2",
+    "click",
 ]
-dynamic = ['version']
+dynamic = ["version"]
 
 [project.urls]
-Homepage = 'https://github.com/LecrisUT/fmf-jinja'
+Homepage = "https://github.com/LecrisUT/fmf-jinja"
 
 [project.optional-dependencies]
 test = [
-    'pytest',
+    "pytest",
 ]
 test-cov = [
-    'fmf_jinja[test]',
-    'pytest-cov',
+    "fmf_jinja[test]",
+    "pytest-cov",
 ]
 docs = [
-    'sphinx',
-    'furo',
-    'myst_parser',
+    "sphinx",
+    "furo",
+    "myst_parser",
 ]
 
 [project.scripts]
-fmf-jinja = 'fmf_jinja.cli:main'
+fmf-jinja = "fmf_jinja.cli:main"
 
 [tool.hatch]
-version.source = 'vcs'
-version.raw-options.version_scheme = 'post-release'
+version.source = "vcs"
+version.raw-options.version_scheme = "post-release"
 build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
 metadata.allow-direct-references = true
 
 [tool.pytest.ini_options]
 testpaths = [
-    'test',
+    "test",
 ]
 
 [tool.ruff]
