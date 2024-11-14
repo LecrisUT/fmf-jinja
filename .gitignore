@@ -241,3 +241,8 @@ cython_debug/
 
 ### Project specific
 /src/fmf_jinja/_version.py
+
+# RPM spec file
+!/.distro/*.spec
+*.tar.gz
+*.rpm
