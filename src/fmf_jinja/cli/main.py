@@ -20,11 +20,18 @@ from ..template import TemplateContext
     type=Path,
     default=".",
     show_default=True,
-    help="Path to the metadata tree root.",
+    help="Path to the fmf tree root",
 )
 @click.pass_context
 def main(ctx: click.Context, root: Path) -> None:
-    """FMF-Jinja template generator."""
+    """
+    FMF-Jinja template generator.
+
+    \f
+
+    :param ctx: click context
+    :param root: fmf tree root path
+    """  # noqa: D301
     ctx.ensure_object(dict)
     ctx.obj["tree"] = Tree(root)
 
@@ -46,16 +53,15 @@ def main(ctx: click.Context, root: Path) -> None:
 )
 @click.pass_context
 def generate(ctx: click.Context, output: Path, recursive: bool) -> None:  # noqa: FBT001
-    r"""
+    """
     Generate template output.
 
     \f
 
-    :param ctx: Click context
-    :param output: Output path
-    :param recursive: Run recursively
-    :return:
-    """
+    :param ctx: click context
+    :param output: output path
+    :param recursive: run recursively
+    """  # noqa: D301
     template_ctx = TemplateContext(
         tree_root=ctx.obj["tree"],
         recursive=recursive,

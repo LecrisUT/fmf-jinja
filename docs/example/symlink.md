@@ -1,3 +1,0 @@
-# Symlink example
-
-TBD

@@ -1,10 +1,9 @@
 # Examples
 
-:::{toctree}
----
-maxdepth: 1
-titlesonly: true
-glob: true
----
-./*
-:::
+You can find example templates in the {path}`example` folder
+
+```{toctree}
+minimal
+simple
+recursive
+```

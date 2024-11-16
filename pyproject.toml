@@ -43,13 +43,16 @@ test = [
     "pytest",
 ]
 test-cov = [
-    "fmf_jinja[test]",
+    "fmf-jinja[test]",
     "pytest-cov",
 ]
 docs = [
     "sphinx",
     "furo",
-    "myst_parser",
+    "myst-parser",
+    "sphinx-tippy",
+    "sphinx-autodoc-typehints",
+    "sphinx-click",
 ]
 
 [project.scripts]
