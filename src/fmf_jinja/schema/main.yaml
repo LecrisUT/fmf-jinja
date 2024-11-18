@@ -1,0 +1,36 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: /main
+title: fmf-jinja input
+description: |
+  Input file for
+
+type: object
+oneOf:
+  - properties:
+      templates:
+        oneOf:
+          - $ref: "/template"
+          - type: array
+            items: { $ref: "/template" }
+      vars: { $ref: "#/$defs/vars" }
+      links: { $ref: "/link" }
+      copy: { $ref: "/copy" }
+    required: [ vars ]
+    additionalProperties: false
+  - properties:
+      templates:
+        oneOf:
+          - $ref: "/template"
+          - type: array
+            items: { $ref: "/template" }
+    additionalProperties: { $ref: "#/$defs/vars" }
+    required: [ templates ]
+  - patternProperties:
+      ^(?!^(vars|templates)$).*$: { $ref: "#/$defs/vars" }
+    additionalProperties: false
+
+$defs:
+  vars:
+    type: object
+    description: |
+      Jinja variables used in the template files
