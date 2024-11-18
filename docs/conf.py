@@ -27,13 +27,13 @@ myst_enable_extensions = [
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.13/", None),
     "tmt": ("https://tmt.readthedocs.io/en/stable", None),
-    "fmf": ("https://fmf.readthedocs.io/en/stable", None),
+    "fmf": ("https://fmf--257.org.readthedocs.build/en/257", None),
     "jinja": ("https://jinja.palletsprojects.com/en/stable", None),
 }
 tippy_rtd_urls = [
     # Only works with RTD hosted intersphinx
     "https://tmt.readthedocs.io/en/stable",
-    "https://fmf.readthedocs.io/en/stable",
+    "https://fmf--257.org.readthedocs.build/en/257",
     "https://jinja.palletsprojects.com/en/stable",
 ]
 autodoc_member_order = "bysource"
