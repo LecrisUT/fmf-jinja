@@ -1,6 +1,8 @@
 # noqa: D100
 from __future__ import annotations
 
+import os
+
 project = "FMF-Jinja"
 author = "Cristian Le"
 extensions = [
@@ -37,9 +39,13 @@ tippy_rtd_urls = [
     "https://jinja.palletsprojects.com/en/stable",
 ]
 autodoc_member_order = "bysource"
-# TODO: Make extlinks git reference aware
+
+repo_slug = os.getenv("GITHUB_REPOSITORY", "LecrisUT/fmf-jinja")
+# Using `GITHUB_REF` is not reliable for the `path` links
+git_ref = os.getenv("GITHUB_SHA", "main")
+
 extlinks = {
     "issue": ("https://github.com/LecrisUT/fmf-jinja/issues/%s", "issue %s"),
-    "path": ("https://github.com/LecrisUT/fmf-jinja/tree/main/%s", "%s"),
+    "path": (f"https://github.com/{repo_slug}/tree/{git_ref}/%s", "%s"),
     "user": ("https://github.com/%s", "%s"),
 }
