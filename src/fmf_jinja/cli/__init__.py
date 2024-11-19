@@ -1,7 +1,10 @@
 """CLI interface wrappers."""
 
-from .main import main
+from __future__ import annotations
+
+from .main import generate, main
 
 __all__ = [
     "main",
+    "generate",
 ]

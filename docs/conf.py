@@ -1,54 +1,51 @@
 # noqa: D100
 from __future__ import annotations
 
-# -- Project information -----------------------------------------------------
+import os
 
 project = "FMF-Jinja"
 author = "Cristian Le"
-
-# -- General configuration ---------------------------------------------------
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
 extensions = [
     "myst_parser",
     "sphinx.ext.intersphinx",
+    "sphinx_tippy",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.extlinks",
+    "sphinx_autodoc_typehints",
+    "sphinx_click",
 ]
-
-# Add any paths that contain templates here, relative to this directory.
 templates_path = []
-
 source_suffix = [".md"]
-
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = [
-    "_build",
-    "**.ipynb_checkpoints",
-    "Thumbs.db",
-    ".DS_Store",
-    ".env",
-    ".venv",
-]
-
-linkcheck_anchors_ignore = [
-    # This seems to be broken on GitHub readmes
-    "default-versioning-scheme",
-    "git-archives",
-]
-# -- Options for HTML output -------------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
 html_theme = "furo"
 
 
-# -- Extension configuration -------------------------------------------------
 myst_enable_extensions = [
     "colon_fence",
     "substitution",
     "deflist",
+    "attrs_block",
+    "dollarmath",
 ]
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3.13/", None),
+    "tmt": ("https://tmt.readthedocs.io/en/stable", None),
+    "fmf": ("https://fmf--257.org.readthedocs.build/en/257", None),
+    "jinja": ("https://jinja.palletsprojects.com/en/stable", None),
+}
+tippy_rtd_urls = [
+    # Only works with RTD hosted intersphinx
+    "https://tmt.readthedocs.io/en/stable",
+    "https://fmf--257.org.readthedocs.build/en/257",
+    "https://jinja.palletsprojects.com/en/stable",
+]
+autodoc_member_order = "bysource"
+
+repo_slug = os.getenv("GITHUB_REPOSITORY", "LecrisUT/fmf-jinja")
+# Using `GITHUB_REF` is not reliable for the `path` links
+git_ref = os.getenv("GITHUB_SHA", "main")
+
+extlinks = {
+    "issue": ("https://github.com/LecrisUT/fmf-jinja/issues/%s", "issue %s"),
+    "path": (f"https://github.com/{repo_slug}/tree/{git_ref}/%s", "%s"),
+    "user": ("https://github.com/%s", "%s"),
+}

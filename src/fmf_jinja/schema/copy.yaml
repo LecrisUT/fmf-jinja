@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: /copy
+title: Copy generator inputs
+description: |
+  Files or folders to be copied. The keys are the destination paths where the files are copied to
+  and the values are the original files that are being copied.
+
+type: object
+items: { $ref: "#/defs/path" }
+
+$defs:
+  path:
+    type: string
+    oneOf:
+      - description: |
+          Path to the symbolic link target relative to the fmf root
+        pattern: '^/.*$'
+      - description: |
+          Path to the symbolic link target relative to the current fmf path
+        pattern: '^[^/].*$'

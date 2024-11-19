@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: /link
+title: Symlink generator inputs
+description: |
+  Symbolic links to be created. The keys are the paths to the symbolic link to be generated
+  and the values are the targets where there symbolic links point to.
+
+type: object
+items: { $ref: "#/defs/path" }
+
+$defs:
+  path:
+    type: string
+    oneOf:
+      - description: |
+          Path to the original file/folder being copied relative to the fmf root
+        pattern: '^/.*$'
+      - description: |
+          Path to the original file/folder being copied relative to the current fmf path
+        pattern: '^[^/].*$'

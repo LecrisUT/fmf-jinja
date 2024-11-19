@@ -1,0 +1,4 @@
+adjust:
+  when: initiator is not defined or initiator != packit
+  discover+:
+    dist-git-source: true

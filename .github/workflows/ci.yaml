@@ -1,20 +1,15 @@
 name: CI
+run-name: >
+  CI (${{ github.event_name }})
+  ${{ github.event_name == 'pull_request' && format('PR#{0}', github.event.number) || '' }}
 
 on:
   workflow_dispatch:
-    inputs:
-      upload-wheel:
-        type: boolean
-        required: false
-        default: false
-        description: Upload wheel as an artifact
-      pytest-flags:
-        type: string
-        required: false
-        description: Additional flags to add to pytest
   pull_request:
   push:
     branches: [ main ]
+  schedule:
+    - cron: 0 0 * * 3
 
 permissions:
   contents: read
@@ -31,32 +26,39 @@ jobs:
     needs: [ pre-commit ]
     uses: ./.github/workflows/step_test.yaml
     with:
-      pytest-flags: ${{ inputs.pytest-flags }}
+      mask-experimental: ${{ github.event_name == 'push' }}
 
-  code-analysis:
-    uses: ./.github/workflows/step_code-analysis.yaml
+  coverage:
+    name: 👀 coverage
     needs: [ tests ]
+    uses: ./.github/workflows/step_coverage.yaml
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    if: github.event_name != 'schedule'
+
+  docs:
+    name: 📘 docs
+    needs: [ pre-commit ]
+    uses: ./.github/workflows/step_docs.yaml
+
+  build:
+    needs: [ pre-commit ]
+    uses: ./.github/workflows/step_build.yaml
+
+  static-analysis:
+    needs: [ pre-commit ]
+    uses: ./.github/workflows/step_static-analysis.yaml
     secrets:
       QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-    permissions:
-      security-events: write
-      contents: write
-      checks: write
-      pull-requests: write
-
-  build-wheel:
-    uses: ./.github/workflows/step_build-wheel.yaml
-    needs: [ tests ]
-    with:
-      upload: ${{ inputs.upload-wheel || false }}
+    if: github.event_name != 'schedule'
 
   pass:
-    name: Pass
-    needs: [ pre-commit, tests, build-wheel, code-analysis ]
+    name: ✅ Pass
+    needs: [ pre-commit, tests, coverage, docs, build, static-analysis ]
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@release/v1
         with:
-          allowed-skips: code-analysis
+          allowed-skips: coverage, static-analysis
           jobs: ${{ toJSON(needs) }}
     if: always()

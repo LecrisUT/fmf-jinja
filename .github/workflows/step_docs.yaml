@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  sphinx:
+    name: Sphinx (${{ matrix.builder }})
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental || false }}
+    strategy:
+      fail-fast: false
+      matrix:
+        builder: [ linkcheck, html ]
+        include:
+          # Run default html builder with warnings as error
+          - builder: html
+            args: -W
+            # TODO: warnings builder is experimental due to missing sphinx-autodoc support
+            # https://github.com/sphinx-doc/sphinx/issues/9813
+            # https://github.com/sphinx-doc/sphinx/issues/11991
+            experimental: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+          cache: pip
+      - name: Install the project and docs dependencies
+        run: pip install -e .[docs]
+      - name: Run sphinx builder ${{ matrix.builder }}
+        run: sphinx-build -b ${{ matrix.builder }} ${{ matrix.args }} ./docs ./docs/_build
