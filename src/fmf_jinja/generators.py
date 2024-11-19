@@ -1,6 +1,7 @@
 """
 Generators that consume the template and its data.
 """
+
 from __future__ import annotations
 
 import abc
@@ -52,7 +53,7 @@ class FullGenerator:
         return self.ctx.tree
 
     @functools.cached_property
-    def vars(self) -> dict[str, DataType]:  # noqa: A003
+    def vars(self) -> dict[str, DataType]:
         """
         Data variables used in the jinja template generation.
 

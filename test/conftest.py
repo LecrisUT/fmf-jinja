@@ -138,7 +138,7 @@ class TreeFixture:
     expected_path: PathComp
 
 
-@pytest.fixture()
+@pytest.fixture
 def fmf_tree(tmp_path: Path, request: SubRequest) -> TreeFixture:
     path = Path(request.param)
     tree_path = DIR / "data/input" / path

@@ -5,7 +5,7 @@ Summary:        Jinja template engine using FMF metadata
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/LecrisUT/fmf-jinja
-Source:         %{pypi_source tmt_cmake}
+Source:         %{pypi_source fmf_jinja}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

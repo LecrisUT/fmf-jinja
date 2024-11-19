@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      mask-experimental:
+        type: boolean
+        default: true
+        description: Always report experimental test as successful
 
 permissions:
   contents: read
@@ -31,3 +36,4 @@ jobs:
         run: pip install -e .[docs]
       - name: Run sphinx builder ${{ matrix.builder }}
         run: sphinx-build -b ${{ matrix.builder }} ${{ matrix.args }} ./docs ./docs/_build
+        continue-on-error: ${{ matrix.experimental && inputs.mask-experimental}}

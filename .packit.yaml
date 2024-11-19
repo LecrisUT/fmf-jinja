@@ -16,26 +16,31 @@ upstream_tag_template: v{version}
 targets:
   - fedora-all
 
-jobs:
-  - &copr
+_:
+  copr_on_packit: &copr_on_packit
     job: copr_build
-    trigger: pull_request
-  - &tests
+  copr_on_lecris: &copr_on_lecris
+    <<: *copr_on_packit
+    owner: lecris
+  tests: &tests
     job: tests
     trigger: pull_request
     fmf_path: .distro
-  - <<: *copr
-    trigger: commit
-    project: nightly
-    branch: main
-  - <<: *tests
-    trigger: commit
-    branch: main
-  - <<: *copr
+
+jobs:
+  - <<: *copr_on_lecris
     trigger: release
     project: release
+  - <<: *copr_on_lecris
+    trigger: commit
+    branch: main
+    project: nightly
   - <<: *tests
-    trigger: release
+    trigger: commit
+  - <<: *copr_on_packit
+    trigger: pull_request
+  - <<: *tests
+    trigger: pull_request
   - job: propose_downstream
     trigger: release
     dist_git_branches:
