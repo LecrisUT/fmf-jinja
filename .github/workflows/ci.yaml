@@ -40,6 +40,8 @@ jobs:
     name: 📘 docs
     needs: [ pre-commit ]
     uses: ./.github/workflows/step_docs.yaml
+    with:
+      mask-experimental: ${{ github.event_name == 'push' }}
 
   build:
     needs: [ pre-commit ]
