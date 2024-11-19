@@ -1,0 +1,4 @@
+summary: Run full pytest tests
+tag: [ pytest ]
+test: python3 -m pytest
+path: /
