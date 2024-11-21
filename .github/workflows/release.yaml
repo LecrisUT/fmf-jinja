@@ -9,6 +9,9 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
       - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     uses: ./.github/workflows/step_test.yaml
@@ -34,6 +37,8 @@ jobs:
     needs: [ upload_pypi ]
     name: Create release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: softprops/action-gh-release@v2
