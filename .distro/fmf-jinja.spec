@@ -17,7 +17,7 @@ Jinja template engine using FMF metadata
 
 
 %prep
-%autosetup -n fmf-jinja-%{version}
+%autosetup -n fmf_jinja-%{version}
 
 
 %generate_buildrequires
