@@ -30,7 +30,7 @@ Jinja template engine using FMF metadata
 
 %install
 %pyproject_install
-%pyproject_save_files fmf_jinja
+%pyproject_save_files -l fmf_jinja
 
 
 %check
@@ -39,7 +39,6 @@ Jinja template engine using FMF metadata
 
 %files -f %{pyproject_files}
 %{_bindir}/fmf-jinja
-%license LICENSE.md
 %doc README.md
 
 
