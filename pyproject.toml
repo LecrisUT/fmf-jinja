@@ -65,8 +65,10 @@ build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
 metadata.allow-direct-references = true
 
 [tool.pytest.ini_options]
-testpaths = [
-    "test",
+testpaths = ["test"]
+markers = [
+    "smoke: Simple smoke tests",
+    "functional: Functional/Regeression tests",
 ]
 
 [tool.ruff]
