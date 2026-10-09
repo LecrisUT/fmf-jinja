@@ -9,17 +9,20 @@ files created, the generation is re-run. This allows to create arbitrarily compl
 template structures. The simplest example here is creating 2D array of outputs:
 
 ```{code-block} yaml
-:caption: /main.fmf
-
+---
+caption: /main.fmf
+---
 vars:
   var1: [2, 3]
   var2:  [x, y]
 templates:
   path: /template
 ```
-```{code-block} jinja
-:caption: /template/main.fmf.j2
 
+```{code-block} jinja
+---
+caption: /template/main.fmf.j2
+---
 {% for A in var1 -%}
 /A_{{ A }}:
   varA: {{ A }}
@@ -29,10 +32,13 @@ templates:
 {% endfor -%}
 {% endfor -%}
 ```
-Which expands to an intermediate fmf tree of
-```{code-block} yaml
-:caption: /main.fmf
 
+Which expands to an intermediate fmf tree of
+
+```{code-block} yaml
+---
+caption: /main.fmf
+---
 /A_2:
   varA: 2
 /A_2/B_x:
@@ -46,6 +52,7 @@ Which expands to an intermediate fmf tree of
 /A_3/B_y:
   varB: y
 ```
+
 ```console
 $ fmf show
 /A_2/B_x
@@ -65,7 +72,7 @@ varA: 3
 varB: y
 ```
 
-:::{note}
+:::\{note}
 If a templated file like `main.fmf.j2` clashes with an original `main.fmf` file in the
 original fmf tree, the generated file overwrites the
 :::
@@ -75,6 +82,7 @@ The recursive feature can be turned off with the `--no-recursive` flag.
 ### `fmf-jinja` bomb
 
 If you want an equivalent [fork bomb] while running `fmf-jinja`, here you are:
+
 ```console
 $ fmf init
 $ touch main.fmf

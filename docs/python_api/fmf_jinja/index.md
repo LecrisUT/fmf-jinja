@@ -7,8 +7,9 @@
 ## Subpackages
 
 ```{toctree}
-:maxdepth: 1
-
+---
+maxdepth: 1
+---
 cli/index
 generators
 template

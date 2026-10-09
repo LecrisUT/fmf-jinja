@@ -10,10 +10,9 @@ from fmf import Tree
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
-    from typing import TypeAlias
 
-    WalkTuple: TypeAlias = tuple[Tree, list[str], list[str]]
-    """Output of :py:meth:`fmf_tree_walk`"""
+type WalkTuple = tuple[Tree, list[str], list[str]]
+"""Output of :py:meth:`fmf_tree_walk`"""
 
 
 def _fmf_node_name(tree: Tree) -> str:

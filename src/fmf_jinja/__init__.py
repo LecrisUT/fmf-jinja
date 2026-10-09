@@ -6,6 +6,6 @@ from ._version import __version__
 from .template import TemplateContext
 
 __all__ = [
-    "__version__",
     "TemplateContext",
+    "__version__",
 ]

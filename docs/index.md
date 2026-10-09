@@ -1,8 +1,9 @@
 # FMF-Jinja
 
 ```{toctree}
-:hidden: true
-
+---
+hidden: true
+---
 self
 usage/index
 why
@@ -13,11 +14,8 @@ python_api/index
 ```
 
 ```{include} ../README.md
-:start-after: <!-- SPHINX-START -->
-:end-before: <!-- SPHINX-END -->
+---
+start-after: <!-- SPHINX-START -->
+end-before: <!-- SPHINX-END -->
+---
 ```
-
-
-[jinja]: inv:jinja#index
-[fmf]: inv:fmf#index
-[`example/minimal`]: example/minimal.md

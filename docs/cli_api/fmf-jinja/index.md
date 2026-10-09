@@ -1,8 +1,9 @@
 # `fmf-jinja`
 
 ```{toctree}
-:hidden: true
-
+---
+hidden: true
+---
 generate
 ```
 
