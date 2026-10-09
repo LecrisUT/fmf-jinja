@@ -18,10 +18,6 @@ Jinja template engine using FMF metadata
 
 %prep
 %autosetup -n fmf_jinja-%{version}
-# Workaround for hatchling not preserving symlinks
-# https://github.com/pypa/hatch/issues/2008
-mkdir -p test/data/input
-cp -r example/* test/data/input
 
 
 %generate_buildrequires
