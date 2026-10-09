@@ -16,7 +16,7 @@ The jinja files are handled as follows:
 1. Files ending with a `.j2` extensions are treated as jinja template files with the
    generated file having the same path and filename except for the final `.j2`
    extension that is stripped.
-1. The variables used in the jinja template are determined by the {term}`vars` variable
+1. The variables used in the jinja template are determined by the {confval}`vars` variable
    of the current fmf node.
 1. `{{ }}` syntax in the path files are **not** expanded. Use the [recursive feature]
    instead.

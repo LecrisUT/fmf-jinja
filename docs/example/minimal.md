@@ -6,9 +6,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Minimal
 
-In the minimal example {term}`vars` is not defined and all keys in the fmf file are
+In the minimal example {confval}`vars` is not defined and all keys in the fmf file are
 used as Jinja variables. By default, the fmf root (`/`) is used as a template folder
-unless {term}`templates` key is specified.
+unless {confval}`templates` key is specified.
 
 The example in {path}`example/minimal` contains a minimal template format for
 `fmf-jinja`. Inside we have a fmf tree defined by:

@@ -17,6 +17,7 @@ example/index
 usecase/index
 cli_api/index
 python_api/index
+config-reference
 ```
 
 ```{include} ../README.md

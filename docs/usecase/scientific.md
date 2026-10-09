@@ -192,7 +192,7 @@ vars: {}
 :::\{caution}
 Currently `fmf-jinja` does not support relative paths in the [`extends`] directive,
 therefore you will have to make symbolic links to the `base.j2` and add it to the
-{term}`exclude <templates[].exclude>` key in order to avoid generating this
+{confval}`exclude <templates[].exclude>` key in order to avoid generating this
 intermediate file.
 :::
 

@@ -7,7 +7,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 # Simple
 
 The more recommended design is to explicitly specify the Jinja variables with
-{term}`vars` and template folder with {term}`templates` keys. This allows to use all
+{confval}`vars` and template folder with {confval}`templates` keys. This allows to use all
 other keys in the [Template schema].
 
 The example in {path}`example/simple` contains a simple template with all supported
