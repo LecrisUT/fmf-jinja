@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -15,14 +15,14 @@ repos:
         exclude: LICENSE.md
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.4
+    rev: v0.16.10
     hooks:
       - id: ruff
         args: ["--fix", "--show-fixes"]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
+    rev: v2.4.0
     hooks:
       - id: mypy
         # TODO: Fix mypy stuff
@@ -35,25 +35,14 @@ repos:
           - pytest
 
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.19
+    rev: 1.0.0
     hooks:
       - id: mdformat
         additional_dependencies:
           - mdformat-gfm
-          - mdformat-tables
-        exclude: ^(docs\/.*|LICENSE.md)
-  - repo: https://github.com/executablebooks/mdformat
-    # https://github.com/executablebooks/mdformat/issues/234
-    # TODO: Disabled due to lack of colon-fence support
-    rev: 0.7.19
-    hooks:
-      - id: mdformat
-        stages: [ manual ]
-        additional_dependencies:
           - mdformat-myst
-        files: docs\/.*\.md$
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.11.24
+    rev: 0.12.24
     hooks:
       - id: uv-lock

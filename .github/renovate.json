@@ -1,17 +1,24 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"packageRules": [
-		{
-			"groupName": "CI and devDependencies",
-			"matchManagers": ["github-actions", "pre-commit"]
-		}
-	],
-	"separateMajorMinor": false,
-	"extends": [
-		"config:recommended",
-		":dependencyDashboard",
-		"schedule:weekly",
-		":enablePreCommit",
-		":semanticCommitTypeAll(chore)"
-	]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "groupName": "CI and devDependencies",
+      "matchManagers": [
+        "github-actions",
+        "pre-commit"
+      ]
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "groupName": "Locked dependencies"
+  },
+  "separateMajorMinor": false,
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "schedule:weekly",
+    ":enablePreCommit",
+    ":semanticCommitTypeAll(chore)"
+  ]
 }
