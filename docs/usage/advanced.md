@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Advanced usage
 
 Here are some more advanced design patterns that you can take advantage of.

@@ -2,6 +2,3 @@ extensions = [
     "gfm",
     "tables",
 ]
-exclude = [
-    "LICENSE.md",
-]

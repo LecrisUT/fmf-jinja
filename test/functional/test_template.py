@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import pytest
 
 from fmf_jinja.template import TemplateContext

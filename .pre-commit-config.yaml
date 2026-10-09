@@ -12,7 +12,6 @@ repos:
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: trailing-whitespace
-        exclude: LICENSE.md
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.10
@@ -46,3 +45,8 @@ repos:
     rev: 0.12.24
     hooks:
       - id: uv-lock
+
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v6.2.0
+    hooks:
+      - id: reuse

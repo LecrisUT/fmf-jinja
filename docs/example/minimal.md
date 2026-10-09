@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Minimal
 
 In the minimal example {term}`vars` is not defined and all keys in the fmf file are

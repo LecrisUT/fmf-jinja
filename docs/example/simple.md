@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Simple
 
 The more recommended design is to explicitly specify the Jinja variables with

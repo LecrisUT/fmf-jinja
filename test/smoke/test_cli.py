@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from importlib.metadata import version
 
 from click.testing import CliRunner

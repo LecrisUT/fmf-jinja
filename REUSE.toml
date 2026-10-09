@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = [
+    "**/.mdformat.toml",
+    "uv.lock",
+    "qodana.yaml",
+    "pyproject.toml",
+    ".github/**/*",
+    ".distro/**/*",
+    ".gitignore",
+    ".git_archival.txt",
+    ".gitattributes",
+    ".pre-commit-config.yaml",
+    ".readthedocs.yml",
+    ".fmf/*",
+    ".packit.yaml",
+    "example/**",
+    "test/data/**",
+    "**/*.fmf",
+]
+SPDX-FileCopyrightText = "Cristian Le"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [
+    "*.py",
+    "*.md",
+]
+SPDX-FileCopyrightText = "Cristian Le"
+SPDX-License-Identifier = "GPL-3.0-or-later"

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # tmt tests
 
 `.fmf` files are primarily used as [tmt] test files. Currently, tmt does not integrate

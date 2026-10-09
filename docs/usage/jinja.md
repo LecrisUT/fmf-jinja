@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Jinja templates
 
 Jinja is a standard templating engine, and we cannot adequately cover its basics here.
