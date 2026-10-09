@@ -8,16 +8,30 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ```{toctree}
 ---
+caption: Overview
 hidden: true
 ---
-self
 usage/index
 why
+```
+
+```{toctree}
+---
+caption: Examples
+hidden: true
+---
 example/index
 usecase/index
-cli_api/index
-python_api/index
-config-reference
+```
+
+```{toctree}
+---
+caption: Reference
+hidden: true
+---
+reference/cli/index
+reference/config
+reference/python/index
 ```
 
 ```{include} ../README.md
