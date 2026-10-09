@@ -11,7 +11,6 @@ extensions = [
     "sphinx_tippy",
     "sphinx.ext.autodoc",
     "sphinx.ext.extlinks",
-    "sphinx_autodoc_typehints",
     "sphinx_click",
 ]
 templates_path = []

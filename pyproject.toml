@@ -37,12 +37,12 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "https://github.com/LecrisUT/fmf-jinja"
 
-[project.optional-dependencies]
+[dependency-groups]
 test = [
     "pytest",
 ]
 test-cov = [
-    "fmf-jinja[test]",
+    {include-group = "test"},
     "pytest-cov",
 ]
 docs = [
@@ -50,8 +50,11 @@ docs = [
     "furo",
     "myst-parser",
     "sphinx-tippy",
-    "sphinx-autodoc-typehints",
     "sphinx-click",
+]
+dev = [
+    {include-group = "test-cov"},
+    {include-group = "docs"},
 ]
 
 [project.scripts]
