@@ -1,4 +1,7 @@
-# noqa: D100
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from __future__ import annotations
 
 import os
@@ -11,7 +14,6 @@ extensions = [
     "sphinx_tippy",
     "sphinx.ext.autodoc",
     "sphinx.ext.extlinks",
-    "sphinx_autodoc_typehints",
     "sphinx_click",
 ]
 templates_path = []

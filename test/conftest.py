@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from __future__ import annotations
 
 import difflib
@@ -78,7 +82,7 @@ def is_same(dir1: Path, dir2: Path) -> bool:
 
 
 @dataclass
-class PathComp:
+class PathComp:  # noqa: PLW1641
     path: Path
 
     def __eq__(self, other):

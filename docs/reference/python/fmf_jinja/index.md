@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # `fmf_jinja`
 
 ```{eval-rst}
@@ -7,8 +13,9 @@
 ## Subpackages
 
 ```{toctree}
-:maxdepth: 1
-
+---
+maxdepth: 1
+---
 cli/index
 generators
 template

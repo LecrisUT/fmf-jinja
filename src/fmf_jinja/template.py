@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Module for the Template fmf data type."""
 
 from __future__ import annotations

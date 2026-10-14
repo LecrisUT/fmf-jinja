@@ -1,23 +1,42 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # FMF-Jinja
 
 ```{toctree}
-:hidden: true
-
-self
+---
+caption: Overview
+hidden: true
+---
 usage/index
 why
+```
+
+```{toctree}
+---
+caption: Examples
+hidden: true
+---
 example/index
 usecase/index
-cli_api/index
-python_api/index
+```
+
+```{toctree}
+---
+caption: Reference
+hidden: true
+---
+reference/cli/index
+reference/config
+reference/python/index
 ```
 
 ```{include} ../README.md
-:start-after: <!-- SPHINX-START -->
-:end-before: <!-- SPHINX-END -->
+---
+start-after: <!-- SPHINX-START -->
+end-before: <!-- SPHINX-END -->
+---
 ```
-
-
-[jinja]: inv:jinja#index
-[fmf]: inv:fmf#index
-[`example/minimal`]: example/minimal.md

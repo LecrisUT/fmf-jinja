@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Cristian Le
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """
 Generators that consume the template and its data.
 """
@@ -14,19 +18,17 @@ from typing import TYPE_CHECKING
 import attrs
 from jinja2 import Environment, FileSystemLoader
 
-from ._compat import relative_to, walk
-
 if TYPE_CHECKING:
-    from typing import Self, TypeAlias
+    from typing import Self
 
     from fmf import Tree
 
     from .template import TemplateContext
 
-    RawDataType: TypeAlias = None | int | float | str | bool
-    ListDataType: TypeAlias = list[RawDataType | "ListDataType" | "DictDataType"]
-    DictDataType: TypeAlias = dict[str, RawDataType | ListDataType | "DictDataType"]
-    DataType: TypeAlias = RawDataType | ListDataType | DictDataType
+type RawDataType = int | float | str | bool | None
+type ListDataType = "list[RawDataType | ListDataType | DictDataType]"
+type DictDataType = "dict[str, RawDataType | ListDataType | DictDataType]"
+type DataType = RawDataType | ListDataType | DictDataType
 
 
 @attrs.define
@@ -233,7 +235,7 @@ class TemplateGenerator(SubGenerator):
             self._render_or_copy(self.template_path, self.ctx.output_path, env=env)
         else:
             # Otherwise generate the whole directory rendering or copying the files
-            for curr_path, dirs_str, files_str in walk(self.template_path):
+            for curr_path, dirs_str, files_str in self.template_path.walk():
                 # Generate the output path and make sure it exists
                 rel_path = curr_path.relative_to(self.template_path)
                 output_path = self.ctx.output_path / rel_path
@@ -303,11 +305,7 @@ class SymlinkGenerator(SubGenerator):
                 # Otherwise it starts from the current output path
                 target_path = self.ctx.output_path / symlink_target
             # Make sure the symlink is created with relative path structure
-            relative_target_path = relative_to(
-                target_path,
-                output_symlink,
-                walk_up=True,
-            )
+            relative_target_path = target_path.relative_to(output_symlink, walk_up=True)
             # Makes sure parent directory is created
             output_symlink.parent.mkdir(exist_ok=True)
             # Remove any pre-existing symlinks or files

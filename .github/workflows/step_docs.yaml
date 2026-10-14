@@ -27,13 +27,15 @@ jobs:
             # https://github.com/sphinx-doc/sphinx/issues/11991
             experimental: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.x
-          cache: pip
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          activate-environment: true
       - name: Install the project and docs dependencies
-        run: pip install -e .[docs]
+        run: uv sync --frozen --group docs
       - name: Run sphinx builder ${{ matrix.builder }}
         run: sphinx-build -b ${{ matrix.builder }} ${{ matrix.args }} ./docs ./docs/_build
         continue-on-error: ${{ matrix.experimental && inputs.mask-experimental}}

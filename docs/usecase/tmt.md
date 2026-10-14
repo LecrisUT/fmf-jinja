@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # tmt tests
 
 `.fmf` files are primarily used as [tmt] test files. Currently, tmt does not integrate
@@ -8,9 +14,11 @@ with this project, but here are some workflows that can be generated from this.
 Consider the case of running a matrix of tests in various python environments and
 running different sets of tests. Using the [recursive feature] we can design this as
 follows:
-```{code-block} jinja
-:caption: /template_tmt/main.fmf.j2
 
+```{code-block} jinja
+---
+caption: /template_tmt/main.fmf.j2
+---
 prepare:
   - how: shell
     script: |
@@ -34,9 +42,11 @@ execute:
 {% endfor %}
 {% endfor %}
 ```
-```{code-block} yaml
-:caption: /main.fmf
 
+```{code-block} yaml
+---
+caption: /main.fmf
+---
 templates: /template_tmt
 vars:
   python_versions: [ "3.9", "3.13" ]
@@ -44,6 +54,7 @@ vars:
 ```
 
 This produces the tmt tree:
+
 ```console
 $ fmf-jinja generate -o output --no-recursive
 $ tmt -r output plans ls
@@ -69,5 +80,5 @@ $ tmt -r output plans show /python_3.9/tier_0
      enabled true
 ```
 
-[tmt]: inv:tmt#index
 [recursive feature]: ../usage/advanced.md#recursive
+[tmt]: inv:tmt#index

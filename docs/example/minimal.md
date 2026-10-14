@@ -1,23 +1,37 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Minimal
 
-In the minimal example {term}`vars` is not defined and all keys in the fmf file are
+In the minimal example {confval}`vars` is not defined and all keys in the fmf file are
 used as Jinja variables. By default, the fmf root (`/`) is used as a template folder
-unless {term}`templates` key is specified.
+unless {confval}`templates` key is specified.
 
 The example in {path}`example/minimal` contains a minimal template format for
 `fmf-jinja`. Inside we have a fmf tree defined by:
+
 ```{literalinclude} ../../example/minimal/main.fmf
-:language: yaml
-:caption: /main.fmf
+---
+language: yaml
+caption: /main.fmf
+---
 ```
+
 The template folder contains a file `common_file.txt` that is simply copied over and
 a template file `file.yaml.j2` which generates a `file.yaml`.
+
 ```{literalinclude} ../../example/minimal/file.yaml.j2
-:language: jinja
-:caption: /file.yaml.j2
+---
+language: jinja
+caption: /file.yaml.j2
+---
 ```
 
 Running `fmf-jinja` on this example we get:
+
 ```console
 $ fmf-jinja -r example/minimal generate -o output
 $ tree -a output

@@ -13,14 +13,14 @@ maintainers = [
 description = "Jinja-style templater using fmf metadata"
 readme = "README.md"
 license = "GPL-3.0-or-later"
-requires-python = ">=3.9"
+license-files = ["LICENSES/GPL-3.0-or-later.txt"]
+requires-python = ">=3.12"
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Utilities",
 ]
 keywords = [
@@ -38,12 +38,12 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "https://github.com/LecrisUT/fmf-jinja"
 
-[project.optional-dependencies]
+[dependency-groups]
 test = [
     "pytest",
 ]
 test-cov = [
-    "fmf-jinja[test]",
+    {include-group = "test"},
     "pytest-cov",
 ]
 docs = [
@@ -51,8 +51,11 @@ docs = [
     "furo",
     "myst-parser",
     "sphinx-tippy",
-    "sphinx-autodoc-typehints",
     "sphinx-click",
+]
+dev = [
+    {include-group = "test-cov"},
+    {include-group = "docs"},
 ]
 
 [project.scripts]
@@ -65,63 +68,24 @@ build.hooks.vcs.version-file = "src/fmf_jinja/_version.py"
 metadata.allow-direct-references = true
 
 [tool.pytest.ini_options]
-testpaths = [
-    "test",
+testpaths = ["test"]
+markers = [
+    "smoke: Simple smoke tests",
+    "functional: Functional/Regeression tests",
 ]
 
 [tool.ruff]
 src = ["src"]
 
 [tool.ruff.lint]
-extend-select = [
-    "F",           # pyflakes
-    "W",           # pycodestyle-warnings
-    "E",           # pycodestyle-errors
-    "I",           # isort
-    "N",           # pep8-naming
-    "D",           # pydocstyle
-    "UP",          # pyupgrade
-    "YTT",         # flake8-2020
-    "ANN",         # flake8-annotations
-    "S",           # flake8-banditF
-    "FBT",         # flake8-boolean-trap
-    "B",           # flake8-bugbear
-    "A",           # flake8-builtins
-    "COM",         # flake8-comma
-    "C4",          # flake8-comprehensions
-    "EM",          # flake8-errmsg
-    "FA",          # flake8-future-annotations
-    "ISC",         # flake8-implicit-str-concat
-    "ICN",         # flake8-import-conventions
-    "G",           # flake8-logging-format
-    "PIE",         # flake8-pie
-    "T20",         # flake8-print
-    "PYI",         # flake8-pyi
-    "PT",          # flake8-pytest-style
-    "Q",           # flake8-quotes
-    "RSE",         # flake8-raise
-    "RET",         # flake8-return
-    "SLF",         # flake8-self
-    "SIM",         # flake8-simplify
-    "TID",         # flake8-tidy-imports
-    "TCH",         # flake8-type-checking
-    "ARG",         # flake8-unused-arguments
-    "PTH",         # flake8-use-pathlib
-    "TD",          # flake8-todos
-    "ERA",         # eradicate
-    "PGH",         # pygrep-hooks
-    "PL",          # pylint
-    "TRY",         # tryceratops
-    "FLY",         # flynt
-    "PERF",        # perflint
-    "FURB",        # refurb
-    "RUF",         # Ruff-specific
+select = [
+    "ALL",
 ]
 ignore = [
-    "ANN101",  # Missing type annotation for `self` in method
-    "ANN102",  # Missing type annotation for `cls` in classmethod
+    "CPY001",    # Missing copyright notice at top of file
     "D203",    # 1 blank line required before class docstring
     "D212",    # Multi-line docstring summary should start at the first line
+    "FIX002",    # Line contains TODO
     "S101",    # Use of assert detected
     "TD002",   # Missing author in TODO
     "TD003",   # Missing issue link on the line following this TODO
@@ -130,7 +94,9 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"test/**" = ["D", "ANN"]
+"test/**" = ["D", "ANN", "INP001"]
+"docs/**" = ["INP001"]
+"docs/conf.py" = ["D100"]
 
 [tool.mypy]
 files = ["src", "test"]

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cristian Le
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Scientific calculation
 
 The majority of scientific programs have highly specific workflows with custom input
@@ -10,9 +16,11 @@ In this example we will take `quantum-espresso` as an example.
 
 A simple example to explore here is running convergence calculations e.g. varying the
 $k$-point grid:
-```{code-block} jinja
-:caption: /template/pw.scf.in.j2
 
+```{code-block} jinja
+---
+caption: /template/pw.scf.in.j2
+---
 &CONTROL
   calculation = 'scf',
   prefix = 'silicon',
@@ -41,9 +49,11 @@ ATOMIC_POSITIONS (alat)
 K_POINTS (automatic)
   {{ n_k }} {{ n_k }} {{ n_k }} 0 0 0
 ```
-```{code-block} yaml
-:caption: main.fmf
 
+```{code-block} yaml
+---
+caption: main.fmf
+---
 templates: /template
 vars:
   ecutwfc: 30
@@ -60,6 +70,7 @@ vars:
 
 Since fmf structure has a filestructure, it is easy to loop over all variants and
 perform the calculations, e.g. a full workflow can look like:
+
 ```console
 $ fmf-jinja generate -o qe-run
 $ pushd qe-run
@@ -83,9 +94,11 @@ how you can take full advantage of the Jinja templating engine.
 
 Here we will show how you can take full advantage of the Jinja templating engine. We
 start from a base template containing the common general data
-```{code-block} jinja
-:caption: /template/base.j2
 
+```{code-block} jinja
+---
+caption: /template/base.j2
+---
 {% block Control %}
 &CONTROL
   calculation = '{% block Calculation required%}{% endblock +%}',
@@ -124,17 +137,22 @@ K_POINTS (automatic)
   {{ n_k }} {{ n_k }} {{ n_k }} 0 0 0
 {% endblock %}
 ```
+
 from which we inherit to define the `scf` and the `bands` input files, overriding the
 [`block`] as needed.
-```{code-block} jinja
-:caption: /template/scf/pw.in.j2
 
+```{code-block} jinja
+---
+caption: /template/scf/pw.in.j2
+---
 {% extends "base.inp.j2" %}
 {% block CalcMode %}scf{% endblock %}
 ```
-```{code-block} jinja
-:caption: /template/bands/pw.in.j2
 
+```{code-block} jinja
+---
+caption: /template/bands/pw.in.j2
+---
 {% extends "base.inp.j2" %}
 {% block CalcMode %}bands{% endblock %}
 {% block KPoints %}
@@ -150,8 +168,9 @@ from which we inherit to define the `scf` and the `bands` input files, overridin
 From which we use the following fmf tree:
 
 ```{code-block} yaml
-:caption: main.fmf
-
+---
+caption: main.fmf
+---
 templates:
   exclude:
     - base.j2
@@ -170,14 +189,15 @@ vars: {}
     tmp: /scf/tmp
 ```
 
-:::{caution}
+:::\{caution}
 Currently `fmf-jinja` does not support relative paths in the [`extends`] directive,
 therefore you will have to make symbolic links to the `base.j2` and add it to the
-{term}`exclude <templates[].exclude>` key in order to avoid generating this
+{confval}`exclude <templates[].exclude>` key in order to avoid generating this
 intermediate file.
 :::
 
 And a simple workflow could look like:
+
 ```console
 $ fmf-jinja generate -o qe-run
 $ pushd qe-run
@@ -194,5 +214,5 @@ folder is overwritten, however there are other workflows like the Wannier calcul
 which can be designed to not overwrite the previous calculation's files. This example
 is simply used to illustrate the workflow design using `fmf-jinja.`
 
-[`extends`]: inv:jinja#extends
 [`block`]: inv:jinja#blocks
+[`extends`]: inv:jinja#extends
